@@ -34,13 +34,18 @@ input.addEventListener("keyup", () => {
   
   let output = "";
   let text = document.querySelector("#inp_text").value;
+  let validated;
   
   for (letter of text.trim().toLowerCase()) {
     
+    validated = false;
+
     for (regExp of regExpressions) {
       
       if(regExp.test(letter)){
         
+        validated= true;
+
         if(output[output.length-1] == regExpressions.indexOf(regExp) + 2){
           output += " ";
         }
@@ -49,8 +54,14 @@ input.addEventListener("keyup", () => {
       }
       else if (letter === " "){
         output += "0";
+        validated = true;
         break;
       }
+    }
+
+    if (!validated){
+      output = "Entrada de Texto Invalida";
+      break;
     }
   }
 
