@@ -57,5 +57,24 @@ textarea{
   max-width: 750px;
   max-height: 120px;
   min-width: 430px;
-  min-height: 38px;;
+  min-height: 38px;
+  
+  width: 450px;
+}
+
+@media screen and (max-width: 535px){
+  div, textarea{
+    width: 240px;
+  }
+  textarea{
+    min-width: 215px !important;
+    width: 90% !important;
+    height: 90%;
+  }
+  .input__text{
+    min-height: 200px !important;
+  }
+  .output__text{
+    min-height: 150px !important;
+  }
 }
