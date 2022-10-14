@@ -1,8 +1,13 @@
+
 /*
- • comentarios en forma de documentación
- • la claridad de los algoritmos
- • la correcta identación del código.
-*/
+ *  14/10 - Jeremias Cuello
+ *
+ * Resumen: Este script cumple con los requesitos necesarios para
+ * lograr el correcto funcionamiento del programa.
+ * 
+ * Fue realizado para los desafios TECIP de la E.E.S.Tecnica Nro.5.
+ * 
+ */
 
 const buttonLetters = [
   ['a', 'b', 'c'],
@@ -61,6 +66,14 @@ input.addEventListener("keyup", () => {
 
 function PressButton(number, letter){
   
+  /*
+  *  14/10 - Jeremias Cuello
+  *
+  * Resumen: Este script "simula" presionar n cantidad de
+  * veces number para "tipear" una la letra letter.
+  * 
+  */
+
   let press = number.toString();
   
   for (const buttonLetter of buttonLetters[number - 2]) {
