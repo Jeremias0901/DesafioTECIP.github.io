@@ -4,8 +4,6 @@
  • la correcta identación del código.
 */
 
-var result = document.querySelector("#result");
-
 const buttonLetters = [
   ['a', 'b', 'c'],
   ['d', 'e', 'f'],
@@ -28,55 +26,51 @@ const regExpressions = [
   /(w|x|y|z)/,
 ]
 
-var input = document.querySelector("#inp_text");
+let input = document.querySelector(".input__text");
+let output = document.querySelector(".output__text");
 
 input.addEventListener("keyup", () => {
   
-  let output = "";
-  let text = document.querySelector("#inp_text").value;
-  let validated;
+  let result = "";
+  let text = document.querySelector(".input__text").value;
   
   for (letter of text.trim().toLowerCase()) {
-    
-    validated = false;
+    let validated = false;
+
+    if (letter === " "){ result += "0"; continue; }
 
     for (regExp of regExpressions) {
+      let button = regExpressions.indexOf(regExp) + 2;
       
-      if(regExp.test(letter)){
-        
+      if(letter.match(regExp)){
         validated= true;
-
-        if(output[output.length-1] == regExpressions.indexOf(regExp) + 2){
-          output += " ";
-        }
         
-        output += PressButton(regExpressions.indexOf(regExp) + 2, letter);
-      }
-      else if (letter === " "){
-        output += "0";
-        validated = true;
+        // agrega un espacio si el ultimo boton presionado y a presionar son iguales
+        result += (result[result.length-1] == button) ? " " : "";
+        result += PressButton(button, letter);
         break;
       }
+
     }
 
-    if (!validated){
-      output = "Entrada de Texto Invalida";
-      break;
-    }
+    if (!validated){ result = "Entrada de texto inválida"; break; }
   }
 
-  result.innerHTML = output;
+  output.innerHTML = result;
 })
 
 function PressButton(number, letter){
   
-  let res = "";  
-  let i = -1;
+  let press = number.toString();
   
-  do{
-    res += number;
-    i += 1;
-  } while(letter != buttonLetters[number-2][i]);
-  
-  return res;
+  for (const buttonLetter of buttonLetters[number - 2]) {
+    
+    if(buttonLetter === letter){
+      break;
+    }
+
+    press += number;
+  }
+
+  return press;
 }
