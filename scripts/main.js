@@ -20,17 +20,6 @@ const buttonLetters = [
   ['w', 'x', 'y', 'z']
 ]
 
-const regExpressions = [
-  /(a|b|c)/,
-  /(d|e|f)/,
-  /(g|h|i)/,
-  /(j|k|l)/,
-  /(m|n|o)/,
-  /(p|q|r|s)/,
-  /(t|u|v)/,
-  /(w|x|y|z)/,
-]
-
 let input = document.querySelector(".input__text");
 let output = document.querySelector(".output__text");
 
@@ -40,22 +29,22 @@ input.addEventListener("keyup", () => {
   let text = document.querySelector(".input__text").value;
   
   for (letter of text.trim().toLowerCase()) {
+  
     let validated = false;
-
     if (letter === " "){ result += "0"; continue; }
 
-    for (regExp of regExpressions) {
-      let button = regExpressions.indexOf(regExp) + 2;
+    for (buttonLetter of buttonLetters) {
+
+      let button = (buttonLetters.indexOf(buttonLetter) + 2).toString();
       
-      if(letter.match(regExp)){
+      if(buttonLetter.includes(letter)){
         validated= true;
         
         // agrega un espacio si el ultimo boton presionado y a presionar son iguales
-        result += (result[result.length-1] == button) ? " " : "";
+        result += (result[result.length-1] === button) ? " " : "";
         result += PressButton(button, letter);
         break;
       }
-
     }
 
     if (!validated){ result = "Entrada de texto inválida"; break; }
@@ -74,16 +63,12 @@ function PressButton(number, letter){
   * 
   */
 
-  let press = number.toString();
+  let press = number;
   
   for (const buttonLetter of buttonLetters[number - 2]) {
     
-    if(buttonLetter === letter){
-      break;
-    }
+    if(buttonLetter === letter) return press;
 
     press += number;
   }
-
-  return press;
 }
