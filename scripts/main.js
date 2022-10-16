@@ -2,10 +2,11 @@
 /*
  *  14/10 - Jeremias Cuello
  *
- * Resumen: Este script cumple con los requesitos necesarios para
- * lograr el correcto funcionamiento del programa.
+ * Resumen: Este script en función de una frase ingresada, devuelve
+ * una secuencia de numeros que se deberian presionar en los
+ * teclados de los teléfonos para tipear la frase introducida.
  * 
- * Fue realizado para los desafios TECIP de la E.E.S.Tecnica Nro.5.
+ * Fue desarrollado para los desafios TECIP de la E.E.S.Tecnica Nro.5 por Jeremias Cuello
  * 
  */
 
@@ -25,32 +26,34 @@ let output = document.querySelector(".output__text");
 
 input.addEventListener("keyup", () => {
   
+  const text = input.value.trim().toLowerCase();
   let result = "";
-  let text = document.querySelector(".input__text").value;
+
+  if(!(/^[a-z ]{0,}$/).test(text)){
+    output.innerHTML = "Entrada Inválida.\nLa frase contiene caracteres inválidos";
+    output.style.color = "#b74c00";
+    return;
+  }
+
+  for (const letter of text) {
   
-  for (letter of text.trim().toLowerCase()) {
-  
-    let validated = false;
     if (letter === " "){ result += "0"; continue; }
 
-    for (buttonLetter of buttonLetters) {
+    for (const buttonLetter of buttonLetters) {
 
-      let button = (buttonLetters.indexOf(buttonLetter) + 2).toString();
+      const button = String(buttonLetters.indexOf(buttonLetter) + 2);
       
-      if(buttonLetter.includes(letter)){
-        validated= true;
-        
-        // agrega un espacio si el ultimo boton presionado y a presionar son iguales
+      if(buttonLetter.includes(letter)){   
+        // Agrega un espacio si el ultimo boton presionado y a presionar son iguales
         result += (result[result.length-1] === button) ? " " : "";
         result += PressButton(button, letter);
         break;
       }
     }
-
-    if (!validated){ result = "Entrada de texto inválida"; break; }
   }
 
   output.innerHTML = result;
+  output.style.color = "black";
 })
 
 function PressButton(number, letter){
@@ -63,12 +66,12 @@ function PressButton(number, letter){
   * 
   */
 
-  let press = number;
-  
+  let sequenceNumbers = number;
+
   for (const buttonLetter of buttonLetters[number - 2]) {
     
-    if(buttonLetter === letter) return press;
+    if(buttonLetter === letter) return sequenceNumbers;
 
-    press += number;
-  }
+    sequenceNumbers += number;
+  } 
 }
